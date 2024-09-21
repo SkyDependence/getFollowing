@@ -17,7 +17,7 @@ if not USERNAME or not PASSWORD:
     print("错误：未能加载环境变量中的用户名或密码。请确保 .env 文件中设置了 IWARA_USERNAME 和 IWARA_PASSWORD。")
     exit(1)
 
-def generate_opml(usernames, output_file='followed_users.opml'):
+def generate_opml(usernames, output_file='iwara_followed_users.opml'):
     """
     根据用户名列表生成 OPML 文件
     """
@@ -173,7 +173,7 @@ def scrape_iwara_following(username, password):
         print(f"共抓取到 {len(followed_usernames)} 个关注的用户。")
 
         # 保存用户名到文本文件
-        with open('followed_usernames.txt', 'w', encoding='utf-8') as f:
+        with open('iwara_followed_usernames.txt', 'w', encoding='utf-8') as f:
             for uname in followed_usernames:
                 f.write(uname + '\n')
 
