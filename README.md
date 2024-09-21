@@ -1,5 +1,9 @@
 
+**新增获取pixiv关注的用户的id并生成opml文件，可导入rss阅读器**
+
+
 # Iwara 关注用户用户名抓取工具(建议搭配rsshub使用)
+
 
 这是一个使用 Python 和 Playwright 的项目，用于抓取你在 [Iwara](https://www.iwara.tv) 网站上关注的用户的用户名。该项目会自动登录你的 Iwara 账号，导航到关注列表页面，并提取你关注的所有用户的用户名。并且生成一份opml文件，可以帮助你快速导入到任何rss阅读器。
 
@@ -115,6 +119,43 @@ user11223
   </body>
 </opml>
 ```
+
+
+# Pixiv 关注用户用户名抓取(建议搭配rsshub使用)
+
+## 环境要求
+
+- Python 3.x
+- pixivpy3
+- dotenv
+
+## 安装步骤
+
+如iwara目录所示
+
+之后，使用pip安装必要的环境和依赖：
+```bash
+pip install pixivpy3 python-dotenv
+```
+
+## 配置
+
+### 使用环境变量
+
+1. 在项目根目录创建 .env 文件：
+
+2. 在 .env 文件中添加你的 pixiv refresh token：
+```
+PIXIV_REFRESH_TOKEN=你的pixiv refresh token
+```
+
+## 使用方法
+运行脚本getPixivFollowing.py
+```bash
+pythong getPixivFollowing.py
+```
+
+接着你就能在根目录下找到pixiv_following.opml和pixiv_following.txt这两个文件生成了
 
 ## 许可
 该项目使用 MIT 许可证 - 请参阅 LICENSE 文件以获取更多信息。
