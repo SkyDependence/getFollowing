@@ -1,0 +1,7 @@
+.venv
+chromedriver-win64
+getusername.py
+*.png
+*.txt
+*.opml
+.env
