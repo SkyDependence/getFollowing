@@ -91,12 +91,12 @@ python getTargetUser.py
 
 - 使用环境变量中存储的用户名和密码登录到你的 Iwara 账号。（非必须）
 - 抓取你关注的用户的用户名。
-- 将用户名保存到 followed_usernames.txt 文件中。
+- 将用户名保存到 iwara_followed_usernames.txt 文件中。
 - 生成一份opml文件，能够导入到rss阅读器
 脚本运行结束后，会在终端输出抓取到的用户总数。
 
 ## 输出示例
-抓取结果保存在 followed_usernames.txt 文件中，示例格式如下：
+抓取结果保存在 iwara_followed_usernames.txt 文件中，示例格式如下：
 ```python
 user12345
 user67890
