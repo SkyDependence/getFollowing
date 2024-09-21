@@ -16,7 +16,7 @@ if not TARGET_USERNAME:
     print("错误：未能加载环境变量中的目标用户名。请确保 .env 文件中设置了 IWARA_TARGET_USERNAME。")
     exit(1)
 
-def generate_opml(usernames, output_file='followed_users.opml'):
+def generate_opml(usernames, output_file='target_followed_users.opml'):
     """
     根据用户名列表生成 OPML 文件
     """
@@ -37,7 +37,7 @@ def generate_opml(usernames, output_file='followed_users.opml'):
             'outline',
             type="rss",
             text=uname,
-            xmlUrl=f"https://rsshub.app/iwara/users/{uname}/video",
+            xmlUrl=f"https://rsshub.app/iwara/users/{uname}",
             ttrssSortOrder="0",
             ttrssPurgeInterval="0",
             ttrssUpdateInterval="0",
@@ -136,7 +136,7 @@ def scrape_iwara_following(target_username):
                 f.write(uname + '\n')
 
         # 生成 OPML 文件
-        generate_opml(followed_usernames, output_file='followed_users.opml')
+        generate_opml(followed_usernames, output_file='target_followed_users.opml')
 
         # 关闭浏览器
         browser.close()
