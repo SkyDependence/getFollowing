@@ -50,29 +50,42 @@
    IWARA_PASSWORD=你的密码
    ```
 
+如果没有设置隐私关注，那么，只需要设置IWARA_TARGET_USERNAME
+```
+IWARA_TARGET_USERNAME=你的用户名
+```
+同样，可以抓取其他用户的关注
+
 ### 手动设置环境变量
 
-你也可以直接在终端中手动设置环境变量：
+你也可以直接在终端中手动设置环境变量(不推荐)
 
 **Linux/Mac**:
 ```bash
 export IWARA_USERNAME='你的用户名'
 export IWARA_PASSWORD='你的密码'
+export IWARA_TARGET_USERNAME=你的用户名
 ```
 **Windows (PowerShell)**:
 ```bash
 $env:IWARA_USERNAME="你的用户名"
 $env:IWARA_PASSWORD="你的密码"
+$env:IWARA_TARGET_USERNAME=你的用户名
 ```
 
 ## 使用方法
-运行抓取脚本：
+使用了账号密码登入的情况下运行抓取脚本：
 ```bash
 python getusername.py
 ```
+不使用账号密码，只使用用户名：
+```bash
+python getTargetUser.py
+```
+
 脚本将会执行以下操作：
 
-- 使用环境变量中存储的用户名和密码登录到你的 Iwara 账号。
+- 使用环境变量中存储的用户名和密码登录到你的 Iwara 账号。（非必须）
 - 抓取你关注的用户的用户名。
 - 将用户名保存到 followed_usernames.txt 文件中。
 - 生成一份opml文件，能够导入到rss阅读器

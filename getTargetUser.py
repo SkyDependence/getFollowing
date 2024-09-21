@@ -8,13 +8,12 @@ from xml.dom import minidom
 # 加载 .env 文件
 load_dotenv()
 
-# 从环境变量中获取账号密码
-USERNAME = os.getenv('IWARA_USERNAME')
-PASSWORD = os.getenv('IWARA_PASSWORD')
+# 从环境变量中获取目标用户名
+TARGET_USERNAME = os.getenv('IWARA_TARGET_USERNAME')
 
 # 检查是否成功加载环境变量
-if not USERNAME or not PASSWORD:
-    print("错误：未能加载环境变量中的用户名或密码。请确保 .env 文件中设置了 IWARA_USERNAME 和 IWARA_PASSWORD。")
+if not TARGET_USERNAME:
+    print("错误：未能加载环境变量中的目标用户名。请确保 .env 文件中设置了 IWARA_TARGET_USERNAME。")
     exit(1)
 
 def generate_opml(usernames, output_file='followed_users.opml'):
@@ -38,7 +37,7 @@ def generate_opml(usernames, output_file='followed_users.opml'):
             'outline',
             type="rss",
             text=uname,
-            xmlUrl=f"https://rsshub.app/iwara/users/{uname}",
+            xmlUrl=f"https://rsshub.app/iwara/users/{uname}/video",
             ttrssSortOrder="0",
             ttrssPurgeInterval="0",
             ttrssUpdateInterval="0",
@@ -55,56 +54,15 @@ def generate_opml(usernames, output_file='followed_users.opml'):
     
     print(f"OPML 文件已生成：{output_file}")
 
-def scrape_iwara_following(username, password):
+def scrape_iwara_following(target_username):
     with sync_playwright() as p:
         # 启动浏览器（Chromium, Firefox, WebKit）
         browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
 
-        # 访问Iwara登录页面
-        page.goto('https://www.iwara.tv/login')
-
-        # 等待页面加载
-        page.wait_for_load_state('networkidle')
-
-        # 输入用户名
-        try:
-            page.fill('input[name="email"]', username)
-        except Exception as e:
-            print("无法找到用户名输入框或填写失败。")
-            browser.close()
-            raise e
-
-        # 输入密码
-        try:
-            page.fill('input[name="password"]', password)
-        except Exception as e:
-            print("无法找到密码输入框或填写失败。")
-            browser.close()
-            raise e
-
-        # 点击登录按钮
-        try:
-            page.click("button[type='submit']")
-        except Exception as e:
-            print("无法找到登录按钮或点击失败。")
-            browser.close()
-            raise e
-
-        # 等待导航完成
-        page.wait_for_load_state('networkidle')
-
-        # 检查是否登录成功，可以根据页面元素或 URL 变化判断
-        if page.url == 'https://www.iwara.tv/login':
-            print("登录失败，请检查用户名和密码。")
-            browser.close()
-            return
-
-        print("登录成功！")
-
-        # 导航到关注列表页面
-        following_url = f'https://www.iwara.tv/profile/{username}/following'
+        # 访问关注列表页面
+        following_url = f'https://www.iwara.tv/profile/{target_username}/following'
         page.goto(following_url)
 
         # 初始化用户名列表
@@ -184,4 +142,4 @@ def scrape_iwara_following(username, password):
         browser.close()
 
 if __name__ == "__main__":
-    scrape_iwara_following(USERNAME, PASSWORD)
+    scrape_iwara_following(TARGET_USERNAME)
