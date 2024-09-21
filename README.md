@@ -64,13 +64,13 @@ IWARA_TARGET_USERNAME=你的用户名
 ```bash
 export IWARA_USERNAME='你的用户名'
 export IWARA_PASSWORD='你的密码'
-export IWARA_TARGET_USERNAME=你的用户名
+export IWARA_TARGET_USERNAME='你的用户名'
 ```
 **Windows (PowerShell)**:
 ```bash
 $env:IWARA_USERNAME="你的用户名"
 $env:IWARA_PASSWORD="你的密码"
-$env:IWARA_TARGET_USERNAME=你的用户名
+$env:IWARA_TARGET_USERNAME="你的用户名"
 ```
 
 ## 使用方法
