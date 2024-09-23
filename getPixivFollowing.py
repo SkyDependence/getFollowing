@@ -1,5 +1,6 @@
 # getPixivFollowing.py
 
+from xml.dom import minidom
 import datetime
 import os
 import time
@@ -143,14 +144,16 @@ def main():
             htmlUrl=html_url
         )
 
-    # 生成 OPML 字符串
-    opml_string = ET.tostring(opml, encoding='utf-8')
-    # 添加 XML 声明
-    opml_string = b'<?xml version="1.0" encoding="utf-8"?>\n' + opml_string
+   
+
+    # 使用 minidom 进行美化
+    rough_string = ET.tostring(opml, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    pretty_xml = reparsed.toprettyxml(indent="  ")
 
     # 保存 OPML 文件
-    with open('pixiv_following.opml', 'wb') as f:
-        f.write(opml_string)
+    with open('pixiv_following.opml', 'w', encoding='utf-8') as f:
+        f.write(pretty_xml)
     print("已生成 OPML 文件：pixiv_following.opml")
 
 if __name__ == "__main__":
