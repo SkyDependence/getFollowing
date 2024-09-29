@@ -121,7 +121,7 @@ def scrape_iwara_following(username, password):
             try:
                 page.wait_for_selector('div.text.text--truncate.text--muted.text--small', timeout=10000)
             except Exception as e:
-                print("关注列表页面未正确加载。")
+                print("关注列表页面未正确加载。请检查网络环境，尝试用浏览器访问iwara来判断是否是网络问题")
                 browser.close()
                 raise e
 
