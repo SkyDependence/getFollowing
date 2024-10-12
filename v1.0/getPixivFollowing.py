@@ -125,7 +125,7 @@ def main():
     title.text = 'Pixiv Followings Feed Export'
 
     # 创建一个分类，例如 "Pixiv Followings"
-    outline_pixiv = ET.SubElement(body, 'outline', text='Pixiv Followings', ttrssSortOrder='0')
+    outline_pixiv = ET.SubElement(body, 'outline', text='Pixiv Followings')
 
     # 为每个 UID 添加一个订阅源
     for pid, user_name in unique_pid_name_pairs:
@@ -138,9 +138,6 @@ def main():
             type='rss',
             text=f"{user_name} 的 pixiv 动态",
             xmlUrl=rss_url,
-            ttrssSortOrder='0',
-            ttrssPurgeInterval='0',
-            ttrssUpdateInterval='0',
             htmlUrl=html_url
         )
 
