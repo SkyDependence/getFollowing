@@ -103,51 +103,55 @@ def main():
         print("未获取到任何关注的 pid。")
 
     # 保存 UID 到文件
-    with open('pixiv_following.txt', 'w', encoding='utf-8') as f:
-        for pid, _ in unique_pid_name_pairs:
-            f.write(f"{pid}\n")
-    print("已将所有 UID 保存到 pixiv_following.txt 文件中。")
+    save_choice = input("\n是否将关注列表保存到文本文件？（y/n）：").strip().lower()
+    if save_choice == 'y':
+        with open('pixiv_following.txt', 'w', encoding='utf-8') as f:
+            for pid, _ in unique_pid_name_pairs:
+                f.write(f"{pid}\n")
+        print("已将所有 UID 保存到 pixiv_following.txt 文件中。")
 
     # 生成 OPML 文件
-    # 创建 OPML 根元素
-    opml = ET.Element('opml', version='1.0')
-    head = ET.SubElement(opml, 'head')
-    body = ET.SubElement(opml, 'body')
+    save_choice = input("\n是否将关注列表保存到文本文件？（y/n）：").strip().lower()
+    if save_choice == 'y':
+        # 创建 OPML 根元素
+        opml = ET.Element('opml', version='1.0')
+        head = ET.SubElement(opml, 'head')
+        body = ET.SubElement(opml, 'body')
 
-    # 添加头部信息
-    date_created = ET.SubElement(head, 'dateCreated')
-    date_created.text = datetime.datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
-    title = ET.SubElement(head, 'title')
-    title.text = 'Pixiv Followings Feed Export'
+        # 添加头部信息
+        date_created = ET.SubElement(head, 'dateCreated')
+        date_created.text = datetime.datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
+        title = ET.SubElement(head, 'title')
+        title.text = 'Pixiv Followings Feed Export'
 
-    # 创建一个分类，例如 "Pixiv Followings"
-    outline_pixiv = ET.SubElement(body, 'outline', text='Pixiv Followings')
+        # 创建一个分类，例如 "Pixiv Followings"
+        outline_pixiv = ET.SubElement(body, 'outline', text='Pixiv Followings')
 
-    # 为每个 UID 添加一个订阅源
-    for pid, user_name in unique_pid_name_pairs:
-        # 构造 RSS 订阅链接，这里假设使用 rsshub.app 的 Pixiv 用户订阅
-        rss_url = f'https://rsshub.app/pixiv/user/{pid}'
-        html_url = f'https://www.pixiv.net/users/{pid}'
-        ET.SubElement(
-            outline_pixiv,
-            'outline',
-            type='rss',
-            text=f"{user_name} 的 pixiv 动态",
-            xmlUrl=rss_url,
-            htmlUrl=html_url
-        )
+        # 为每个 UID 添加一个订阅源
+        for pid, user_name in unique_pid_name_pairs:
+            # 构造 RSS 订阅链接，这里假设使用 rsshub.app 的 Pixiv 用户订阅
+            rss_url = f'https://rsshub.app/pixiv/user/{pid}'
+            html_url = f'https://www.pixiv.net/users/{pid}'
+            ET.SubElement(
+                outline_pixiv,
+                'outline',
+                type='rss',
+                text=f"{user_name} 的 pixiv 动态",
+                xmlUrl=rss_url,
+                htmlUrl=html_url
+            )
 
-   
+    
 
-    # 使用 minidom 进行美化
-    rough_string = ET.tostring(opml, 'utf-8')
-    reparsed = minidom.parseString(rough_string)
-    pretty_xml = reparsed.toprettyxml(indent="  ")
+        # 使用 minidom 进行美化
+        rough_string = ET.tostring(opml, 'utf-8')
+        reparsed = minidom.parseString(rough_string)
+        pretty_xml = reparsed.toprettyxml(indent="  ")
 
-    # 保存 OPML 文件
-    with open('pixiv_following.opml', 'w', encoding='utf-8') as f:
-        f.write(pretty_xml)
-    print("已生成 OPML 文件：pixiv_following.opml")
+        # 保存 OPML 文件
+        with open('pixiv_following.opml', 'w', encoding='utf-8') as f:
+            f.write(pretty_xml)
+        print("已生成 OPML 文件：pixiv_following.opml")
 
 if __name__ == "__main__":
     main()
