@@ -187,8 +187,8 @@ def main():
         opml_choice = input("是否生成 OPML 文件以导入 RSS 订阅？（y/n）：").strip().lower()
         if opml_choice == 'y':
             generate_opml(following_usernames, username)
-    else:
-        print(f"{username} 没有关注任何用户，或无法获取关注列表。")
+        else:
+            print(f"{username} 没有关注任何用户，或无法获取关注列表。")
 
 if __name__ == "__main__":
     main()
