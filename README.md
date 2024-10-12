@@ -1,4 +1,4 @@
-## 获取关注列表，生成opml，可导入rss阅读器
+## 获取关注列表，生成opml，可导入rss阅读器(订阅源为[rsshub](https://rsshub.app))
 ### iwara
 #### 环境要求：
 1. python 3.x
