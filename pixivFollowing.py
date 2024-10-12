@@ -2,10 +2,7 @@
 
 from xml.dom import minidom
 import datetime
-import os
-import time
 from pixivpy3 import AppPixivAPI
-from dotenv import load_dotenv
 import xml.etree.ElementTree as ET
 
 def main():
