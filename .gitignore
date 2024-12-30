@@ -5,3 +5,4 @@ getusername.py
 *.txt
 *.opml
 .env
+.vscode
