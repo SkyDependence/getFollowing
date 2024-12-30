@@ -3,6 +3,7 @@ chromedriver-win64
 getusername.py
 *.png
 *.txt
+!requirements.txt
 *.opml
 .env
 .vscode

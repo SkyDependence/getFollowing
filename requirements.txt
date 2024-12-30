@@ -1,0 +1,2 @@
+requests>=2.31.0
+pixivpy3>=3.6.0
